@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fibonacci</title>
+    <script>
+        function printFibonacci(n) {
+            if (n <= 0 || isNaN(n)) {
+                document.getElementById("output").innerHTML = "Please provide a positive number.";
+                return;
+            }
+
+            let a = 0, b = 1;
+
+            document.getElementById("output").innerHTML = "Fibonacci Sequence:<br>"; // Clear and add the title
+            for (let i = 0; i < n; i++) {
+                document.getElementById("output").innerHTML += a + "<br>"; // Print the current number
+                let next = a + b; // Calculate the next number
+                a = b; // Update a
+                b = next; // Update b
+            }
+        }
+
+        // Example usage
+        window.onload = function() {
+            let n = parseInt(prompt("Enter the number of terms to display in the Fibonacci sequence:")); // Number of terms
+            printFibonacci(n);
+        };
+    </script>
+</head>
+<body>
+    <h1>Fibonacci Sequence</h1>
+    <p>Here are the numbers in the Fibonacci sequence:</p>
+    <p id="output"></p>
+</body>
+</html>
