@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Marks</title>
+    <script>
+        function calculateResults() {
+            let marks = [];
+            for (let i = 1; i <= 5; i++) {
+                let mark = parseInt(document.getElementById("mark" + i).value);
+                marks.push(mark);
+            }
+
+            let total = marks.reduce((a, b) => a + b, 0);
+            let average = total / marks.length;
+            let result = document.getElementById("result");
+            let grade;
+            let passFail;
+
+            if (average >= 90) {
+                grade = "A";
+            } else if (average >= 80) {
+                grade = "B";
+            } else if (average >= 70) {
+                grade = "C";
+            } else if (average >= 60) {
+                grade = "D";
+            } else {
+                grade = "F";
+            }
+
+            passFail = average >= 40 ? "Pass" : "Fail";
+
+            result.innerHTML = `
+                <p>Total Marks: ${total}</p>
+                <p>Average Marks: ${average.toFixed(2)}</p>
+                <p>Grade: ${grade}</p>
+                <p>Status: ${passFail}</p>
+            `;
+        }
+    </script>
+</head>
+<body>
+    <h2>Student Marks</h2>
+    <form onsubmit="event.preventDefault(); calculateResults();">
+        <label for="mark1">Student 1 Marks: </label>
+        <input type="number" id="mark1" name="mark1" required><br><br>
+        <label for="mark2">Student 2 Marks: </label>
+        <input type="number" id="mark2" name="mark2" required><br><br>
+        <label for="mark3">Student 3 Marks: </label>
+        <input type="number" id="mark3" name="mark3" required><br><br>
+        <label for="mark4">Student 4 Marks: </label>
+        <input type="number" id="mark4" name="mark4" required><br><br>
+        <label for="mark5">Student 5 Marks: </label>
+        <input type="number" id="mark5" name="mark5" required><br><br>
+        <button type="submit">Calculate Results</button>
+    </form>
+    <div id="result"></div>
+</body>
+</html>
