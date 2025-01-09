@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Random Odd/Even Number Display</title>
+    <script>
+        function displayRandomNumber() {
+            let n = parseInt(document.getElementById("numberInput").value);
+            let type = document.getElementById("typeSelect").value;
+            let result = document.getElementById("result");
+            result.innerHTML = "";  // Clear previous results
+
+            let numbers = [];
+            for (let i = 1; i <= n; i++) {
+                if (type === "odd" && i % 2 !== 0) {
+                    numbers.push(i);
+                } else if (type === "even" && i % 2 === 0) {
+                    numbers.push(i);
+                }
+            }
+
+            if (numbers.length > 0) {
+                let randomIndex = Math.floor(Math.random() * numbers.length);
+                result.innerHTML = numbers[randomIndex];
+            } else {
+                result.innerHTML = "No numbers found in the selected range.";
+            }
+        }
+    </script>
+</head>
+<body>
+    <h2>Random Odd/Even Number Display</h2>
+    <form onsubmit="event.preventDefault(); displayRandomNumber();">
+        <label for="numberInput">Enter a number: </label>
+        <input type="number" id="numberInput" name="numberInput" required><br><br>
+        <label for="typeSelect">Select type: </label>
+        <select id="typeSelect" name="typeSelect" required>
+            <option value="odd">Odd</option>
+            <option value="even">Even</option>
+        </select><br><br>
+        <button type="submit">Display Random Number</button>
+    </form>
+    <div id="result"></div>
+</body>
+</html>
