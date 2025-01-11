@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Key-Value Array</title>
+    <script>
+        function countTypes() {
+            // Create a key-value array with different data types
+            const keyValueArray = [
+                { key: "name", value: "Stuti" },        // string
+                { key: "age", value: 21 },             // number
+                { key: "isStudent", value: true },     // boolean
+                { key: "address", value: null },       // object (null is typeof "object" in JS)
+                { key: "course", value: "Math" },      // string
+                { key: "score", value: 89 },           // number
+                { key: "callback", value: function() { return "Hello"; } }, // function
+                { key: "hobby", value: "Reading" },    // string
+                { key: "siblings", value: 3 },         // number
+                { key: "country", value: "India" }       // string
+            ];
+
+            let numberCount = 0;
+            let stringCount = 0;
+            let booleanCount = 0;
+            let objectCount = 0;
+            let functionCount = 0;
+
+            // Iterate through the array and count types
+            for (let i = 0; i < keyValueArray.length; i++) {
+                const value = keyValueArray[i].value;
+                if (typeof value === "number") {
+                    numberCount++;
+                } else if (typeof value === "string") {
+                    stringCount++;
+                } else if (typeof value === "boolean") {
+                    booleanCount++;
+                } else if (typeof value === "object") {
+                    objectCount++;
+                } else if (typeof value === "function") {
+                    functionCount++;
+                } 
+            }
+
+            // Display the results
+            document.getElementById("output").innerHTML =
+                `Number of 'number' values: ${numberCount}<br>` +
+                `Number of 'string' values: ${stringCount}<br>` +
+                `Number of 'boolean' values: ${booleanCount}<br>` +
+                `Number of 'object' values: ${objectCount}<br>` +
+                `Number of 'function' values: ${functionCount}`;
+        }
+    </script>
+</head>
+<body onload="countTypes()">
+    <h1>Key-Value Array Type Count</h1>
+    <div id="output"></div>
+</body>
+</html>

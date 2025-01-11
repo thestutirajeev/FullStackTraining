@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Grading</title>
+    <script>
+        let nums = [];
+        let max = null, min = null;
+
+        function options() {
+            const n = parseInt(prompt("Enter length of array"));
+            for (let i = 0; i < n; i++) {
+                const num = parseInt(prompt("Enter number in array"));
+                nums.push(num);
+
+                if (max === null || num > max) max = num;
+                if (min === null || num < min) min = num;
+            }
+        }
+
+        function fun() {
+            const sel = document.getElementById("do").value;
+            const resEle = document.getElementById("output");
+            const inputBox = document.getElementById("inputBox");
+
+            if (sel === "min") {
+                resEle.innerHTML = "Minimum value in array is " + min;
+                inputBox.style.display = "none";
+            } else if (sel === "max") {
+                resEle.innerHTML = "Maximum value in array is " + max;
+                inputBox.style.display = "none";
+            } else if (sel === "find") {
+                inputBox.style.display = "block";
+                resEle.innerHTML = ""; // Clear the result area
+            }
+        }
+
+        function find() {
+            const f = parseInt(document.getElementById("f").value);
+            const resEle = document.getElementById("output");
+            const inputBox = document.getElementById("inputBox");
+
+            for (let i = 0; i < nums.length; i++) {
+                if (nums[i] === f) {
+                    resEle.innerHTML = "Found at index " + i;
+                    inputBox.style.display = "none";
+                    return;
+                }
+            }
+            resEle.innerHTML = "Not Found";
+            inputBox.style.display = "none";
+        }
+    </script>
+</head>
+<body onload="options()">
+    <select id="do" onchange="fun()">
+        <option value="min">Min</option>
+        <option value="max">Max</option>
+        <option value="find">Find</option>
+    </select>
+    <div id="inputBox" style="display: none;">
+        <input id="f" type="number">
+        <button onclick="find()">Search</button>
+    </div>
+    <p id="output"></p>
+</body>
+</html>

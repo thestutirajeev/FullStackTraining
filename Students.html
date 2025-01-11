@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Grading</title>
+<script>
+function students(){
+var name = [];
+let n = parseInt(prompt("Enter number of student"));
+console.log(n);
+var resEle = document.getElementById("output");
+for(let i = 0; i < n; i++){
+name.push(prompt("Enter name of Student"));
+let v = 0;
+for(let j = 0; j < name[i].length; j++){
+if(name[i].charAt(j) === 'a' || name[i].charAt(j) === 'e' ||
+name[i].charAt(j) === 'i' || name[i].charAt(j) === 'o' || name[i].charAt(j)
+=== 'u')
+v++;
+}
+resEle.innerHTML += name[i]+' has '+v+' vowels <br>';
+}
+}
+</script>
+</head>
+<body onload="students()">
+<p id = "output">Result = </p>
+</body>
+</html>

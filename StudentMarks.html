@@ -14,9 +14,10 @@
             let average = total / marks.length;
             let result = document.getElementById("result");
             let grade;
-            let passFail;
 
-            if (average >= 90) {
+            if (average >= 95) {
+                grade = "S";
+            } else if (average >= 90) {
                 grade = "A";
             } else if (average >= 80) {
                 grade = "B";
@@ -28,13 +29,11 @@
                 grade = "F";
             }
 
-            passFail = average >= 40 ? "Pass" : "Fail";
 
             result.innerHTML = `
                 <p>Total Marks: ${total}</p>
                 <p>Average Marks: ${average.toFixed(2)}</p>
                 <p>Grade: ${grade}</p>
-                <p>Status: ${passFail}</p>
             `;
         }
     </script>
