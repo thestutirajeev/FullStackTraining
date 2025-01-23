@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Employee Details Form</title>
+<script>
+function calculateAge() {
+    const dob = document.getElementById("dob").value;
+    const ageField = document.getElementById("age");
+    if (dob) {
+        const dobDate = new Date(dob);
+        const today = new Date();
+        let age = today.getFullYear() - dobDate.getFullYear();
+        const monthDifference = today.getMonth() - dobDate.getMonth();
+        if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < dobDate.getDate())) {
+            age--;
+        }
+        ageField.value = age >= 0 ? age : "Invalid";
+    }
+}
+
+function validateForm() {
+    const empId = document.getElementById("empId").value;
+    const name = document.getElementById("empName").value;
+    const dob = new Date(document.getElementById("dob").value);
+    const email = document.getElementById("email").value;
+    const mobile = document.getElementById("mobile").value;
+    const address = document.getElementById("address").value;
+
+    // Employee ID Validation
+    const empIdPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$/;
+    if (!empIdPattern.test(empId)) {
+        alert("Employee ID must contain both letters and numbers.");
+        return false;
+    }
+
+    // Name Validation
+    const namePattern = /^[A-Za-z\s]+$/;
+    if (!namePattern.test(name)) {
+        alert("Name must not contain special characters.");
+        return false;
+    }
+
+    // Date of Birth Validation
+    if (dob.getFullYear() < 1975) {
+        alert("Date of birth must not be before 1975.");
+        return false;
+    }
+
+    // Email Validation
+    const emailPattern = /^[^\s@]{,14}@[^\s@]{,5}\.[a-z]{1,3}$/;
+    if (!emailPattern.test(email)) {
+        alert("Invalid email format.");
+        return false;
+    }
+
+    // Mobile Number Validation
+    if (!/^\d{10}$/.test(mobile)) {
+        alert("Mobile number must be exactly 10 digits.");
+        return false;
+    }
+
+    // Address Validation
+    if (address.length > 25) {
+        alert("Address must not exceed 25 characters.");
+        return false;
+    }
+
+    alert("Form submitted successfully!");
+    return true;
+}
+</script>
+</head>
+<body>
+    <form onsubmit="return validateForm()">
+        Employee ID: <input type="text" name="empId" id="empId" required><br>
+        Name: <input type="text" name="empName" id="empName" required><br>
+        Date of Birth: <input type="date" name="dob" id="dob" required onchange="calculateAge()"><br>
+        Age: <input type="text" name="age" id="age" disabled><br>
+        Email: <input type="text" name="email" id="email" required><br>
+        Mobile Number: <input type="text" name="mobile" id="mobile" required><br>
+        Permanent Address: <textarea name="address" id="address" maxlength="25" required></textarea><br>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

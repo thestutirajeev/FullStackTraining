@@ -1,0 +1,16 @@
+div.mydivone {
+    background-color: yellow;
+    color: red;
+    text-align: center;
+  }
+  div.mydivtwo {
+    background-color: aqua;
+    font-family: Arial; 
+    color: white;
+    text-align: center;
+    background-image: url('OIP.jpeg');
+  };
+  h1.myheadone{
+      color:blue;
+      font-size:32px;
+  }
