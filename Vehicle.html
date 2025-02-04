@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vehicle Service Form</title>
+<script>
+function validateForm() {
+    const vehicleno = document.getElementById("vehicleno").value;
+    const model = document.getElementById("model").value.toLowerCase();
+    const year = document.getElementById("year").value;
+    const delivery = new Date(document.getElementById("delivery").value);
+    const pickup = new Date(document.getElementById("pickup").value);
+    const estimate = document.getElementById("aprox").value;
+
+    // Validate vehicle number format
+    const vehiclePattern = /^[A-Z]{2} \d{2} [A-Z]{2} \d{4}$/;
+    if (!vehiclePattern.test(vehicleno)) {
+        alert("Invalid vehicle number format. Format: TN 23 CC 1000.");
+        return false;
+    }
+
+    // Validate model based on maker
+    const maker = document.querySelector('input[name="maker"]:checked');
+    if (!maker) {
+        alert("Please select the maker's name.");
+        return false;
+    }
+    const validModels = {
+        maruthi: ["alto", "swift", "baleno", "wagonr"],
+        hyundai: ["i10", "i20", "creta", "venue"]
+    };
+    if (!validModels[maker.value].includes(model)) {
+        alert(`Invalid model name for ${maker.value}.`);
+        return false;
+    }
+
+    // Validate model year
+    if (year < 2000) {
+        alert("Model year must not be less than 2000.");
+        return false;
+    }
+
+    // Validate delivery date
+    if (delivery < pickup) {
+        alert("Delivery date cannot be earlier than the pickup date.");
+        return false;
+    }
+
+    // Validate estimate amount
+    if (!/^\d+(\.\d{1,2})?$/.test(estimate)) {
+        alert("Invalid estimate amount. Please enter a valid number.");
+        return false;
+    }
+
+    alert("Form submitted successfully!");
+    return true;
+}
+
+// Set today's date for pickup and make it non-editable
+window.onload = function () {
+    const today = new Date().toISOString().split("T")[0];
+    document.getElementById("pickup").value = today;
+    document.getElementById("pickup").setAttribute("readonly", true);
+};
+</script>
+</head>
+<body>
+<form onsubmit="return validateForm()">
+    <label>Vehicle Number: </label>
+    <input type="text" id="vehicleno" required><br><br>
+
+    <label>Vehicle Name: </label>
+    <input type="text" id="vehiclename" required><br><br>
+
+    <label>Color: </label>
+    <input type="color" id="color" required><br><br>
+
+    <label>Maker's Name: </label>
+    <input type="radio" name="maker" value="maruthi"> Maruthi
+    <input type="radio" name="maker" value="hyundai"> Hyundai<br><br>
+
+    <label>Model Name: </label>
+    <input type="text" id="model" required><br><br>
+
+    <label>Model Year: </label>
+    <input type="number" id="year" min="2000" required><br><br>
+
+    <label>Date of Pick up: </label>
+    <input type="date" id="pickup" required><br><br>
+
+    <label>Date of Delivery: </label>
+    <input type="date" id="delivery" required><br><br>
+
+    <label>Approximate Estimate: </label>
+    <input type="text" id="aprox" required><br><br>
+
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>

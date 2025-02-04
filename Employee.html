@@ -7,7 +7,7 @@
 <script>
 function calculateAge() {
     const dob = document.getElementById("dob").value;
-    const ageField = document.getElementById("age");
+
     if (dob) {
         const dobDate = new Date(dob);
         const today = new Date();
@@ -16,7 +16,7 @@ function calculateAge() {
         if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < dobDate.getDate())) {
             age--;
         }
-        ageField.value = age >= 0 ? age : "Invalid";
+        document.getElementById("age").value = age >= 0 ? age : "Invalid";
     }
 }
 
@@ -47,9 +47,9 @@ function validateForm() {
         alert("Date of birth must not be before 1975.");
         return false;
     }
-
+    
     // Email Validation
-    const emailPattern = /^[^\s@]{,14}@[^\s@]{,5}\.[a-z]{1,3}$/;
+    const emailPattern = /^[^\s@]{1,14}@[^\s@]{1,5}\.[a-z]{1,3}$/;
     if (!emailPattern.test(email)) {
         alert("Invalid email format.");
         return false;
