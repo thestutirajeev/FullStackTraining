@@ -1,0 +1,77 @@
+<html>
+<head>
+<title> User Form</title>
+</head>
+ <script>
+ function display(){
+	var uname = document.getElementById("huname").value;
+	//var uname = document.querySelector('input[name="huname"]').value;
+	var password = document.getElementById("hpwd").value;
+	var age = Number(document.getElementById("hage").value);
+	/*var genderObj = document.querySelector('input[name="hgender"]:checked');
+	var gender = genderObj.value;*/
+	var gen= document.getElementsByName('hgender');
+	var gender="";
+	for(let i=0;i<gen.length;i++){
+		if(gen[i].checked){
+			gender = gen[i].value;
+	    }
+	}
+	
+	var aaoi = document.getElementsByName("haoi");
+	var aoi="";
+	for(var val of aaoi){
+	    if (val.checked)
+		aoi += val.value+", ";
+	} 
+	var dob = document.getElementById("hdob").value;
+	var city = document.getElementById("hcity").value;
+	var courses = document.getElementById("hcourse").options;
+	var selCourses ="";
+	for(var c of courses)
+	  if (c.selected)
+	    selCourses += c.value+", ";
+	document.getElementById("result").innerHTML = "Name: "+uname+"<br>";
+	document.getElementById("result").innerHTML += "Password: "+password+"<br>";
+	document.getElementById("result").innerHTML += "Age: "+age+"<br>";
+	document.getElementById("result").innerHTML += "Gender: "+gender+"<br>";
+	document.getElementById("result").innerHTML += "Area of Interest: "+aoi+"<br>";
+	document.getElementById("result").innerHTML += "Date of Birth: "+dob+"<br>";
+	document.getElementById("result").innerHTML += "City: "+city+"<br> ";
+	document.getElementById("result").innerHTML += "Courses: "+selCourses+" ";
+	
+ }
+ </script>
+ <body>
+ <h1>User Information</h1>
+<form>
+ Name: <input type="text" id = "huname" name="huname"><br><br>
+ Password <input type="password" id = "hpwd" name="hpwd"><br><br>
+ Age: <input type="number" id = "hage" name="hage" min=1 max=100><br><br>
+ Gender:<input type="radio" name="hgender" value="male" > Male &nbsp;&nbsp;&nbsp;&nbsp;
+ <input type="radio" name="hgender" value="female" checked>Female &nbsp;&nbsp;&nbsp;&nbsp;
+ <input type="radio" name="hgender" value="transgen">Transgender <br><br>
+ Area of Interest: <input type="checkbox" name="haoi" value="sports"> Sports &nbsp;&nbsp;&nbsp;&nbsp;
+ <input type="checkbox" name="haoi" value="travel">Travel &nbsp;&nbsp;&nbsp;&nbsp;
+ <input type="checkbox" name="haoi" value="music">music &nbsp;&nbsp;&nbsp;&nbsp;
+ <input type="checkbox" name ="haoi" value="food"> Food <br><br>
+ Date of Birth: <input type="date" id = "hdob" name="hdob"><br><br>
+Choose your city: <select id ="hcity" name="hcity">
+    <option value="Anadpur">Anandpur</option>
+    <option value="Bangalore">Bengaluru</option>
+    <option value="Chennai">Chennai</option>
+    <option value="Hydrabad">Hyderabad</option>
+    <option value="Delhi">Delhi</option>
+</select><br><br>
+Choose your courses: <select id = "hcourse" name="hcourse" multiple>
+    <option value="Maths">Maths</option>
+    <option value="Physics">Physics</option>
+    <option value="Chemistry">Chemistry</option>
+    <option value="Biology">Biology</option>
+    <option value="English">English</option>
+</select><br>
+<input type="button" value="SUBMIT" onclick= "display()">
+</form>
+<p id ="result"></p>
+</body>
+</html>
