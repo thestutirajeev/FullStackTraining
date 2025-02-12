@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch JSON and Display Table</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Fetch JSON Data and Display in Table</h2>
+    <button id="fetchData">Load Data</button>
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>Index</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        $(document).ready(function(){
+            $('#fetchData').click(function(){
+                loadUserData();
+            });
+        });
+        function loadUserData(){
+            const xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200){
+                    let rows = "";
+                    let data = xhttp.responseText;
+                    data = JSON.parse(data);
+                    $.each(data, function(index, value){
+                        rows += '<tr>';
+                        rows += '<td>' + index + '</td>';
+                        rows += '<td>' + value.id + '</td>';
+                        rows += '<td>' + value.name + '</td>';
+                        rows += '<td>' + value.email + '</td>';
+                        rows += '</tr>';
+                    });
+                    $("#dataTable tbody").empty().append(rows);
+                    // Apply alternate row colors using jQuery
+                    $("#dataTable tbody tr:even").css("background-color", "#f2f2f2");
+                }
+            };
+            xhttp.open("GET", "users.json");
+            xhttp.send();
+        }
+    </script>
+
+</body>
+</html>
