@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Enrollment</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        input:focus, select:focus {
+            background-color: #e0f7fa;
+            border: 2px solid #00796b;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Course Enrollment Form</h2>
+
+<form id="enrollmentForm">
+    <table id = "enrollmentTable">
+        <tr>
+            <th>Field</th>
+            <th>Details</th>
+        </tr>
+        <tr>
+            <td>Full Name</td>
+            <td><input type="text" name="full_name" required></td>
+        </tr>
+        <tr>
+            <td>Course</td>
+            <td>
+                <select name="course" required>
+                    <option value="">Select Course</option>
+                    <option value="MSc Mathematics">MSc Mathematics</option>
+                    <option value="MSc Physics">MSc Physics</option>
+                    <option value="MTech CS">MTech CS</option>
+                </select>
+            </td>
+        </tr>
+        <tr id="mobiletr">
+            <td>Mobile</td>
+            <td><input type="tel" name="mobile" required></td>
+        </tr>
+        <tr id="emailtr">
+            <td>Email</td>
+            <td><input type="email" name="email" required></td>
+        </tr>
+    </table>
+    
+    <button type="button" id="addEmail">Add Alternative Email</button>
+    <button type="button" id="addMobile">Add Alternative Mobile</button>
+    <button type="submit">Submit</button>
+</form>
+
+<h3>Enrollment Details</h3>
+<ul id="output"></ul>
+
+<script>
+    $(document).ready(function () {
+
+        // Highlight form fields on focus and blur
+        $("#enrollmentTable").on("mouseenter mouseleave", function () {
+            $(this).css("background-color", 
+                $(this).css("background-color") === "rgb(255, 192, 203)" ? "white" : "pink"
+            );
+        });
+
+        // Add alternative mobile and email fields
+        $("#addEmail").click(function () {
+            $("#emailtr").after(`
+                    <tr>
+                        <td>Alternative Email</td>
+                        <td><input type="email" name="alt_email"></td>
+                    </tr>
+            `);
+        });
+        $("#addMobile").click(function () {
+            $("#mobiletr").after(`
+                    <tr>
+                        <td>Alternative Mobile</td>
+                        <td><input type="mobile" name="alt_mobile"></td>
+                    </tr>
+            `);
+        });
+        // Handle form submission
+        $("#enrollmentForm").submit(function (event) {
+            event.preventDefault();  // Prevent page reload
+
+            let formData = $(this).serializeArray();
+            let outputList = $("#output").empty();
+
+            $.each(formData, function (index, field) {
+                if (field.value.trim()) {
+                    outputList.append(`<li><strong>${field.name.replace(/_/g, ' ')}:</strong> ${field.value}</li>`);
+                }
+            });
+
+            alert("Form submitted successfully!");
+        });
+    });
+</script>
+
+</body>
+</html>
