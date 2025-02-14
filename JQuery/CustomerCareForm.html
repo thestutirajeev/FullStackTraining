@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Registration Application</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+    <h2>Ticket Registration Application</h2>
+
+    <!-- Login Form -->
+    <form id="loginform">
+        <p id="wlcmsg" style="font-size: xx-large; right: 10px; top: 10px; position: absolute; display: none;">
+            Welcome
+        </p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Field</th>
+                    <th>Enter Record</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Mobile:</td>
+                    <td><input id="mobile" type="tel"></td>
+                </tr>
+                <tr>
+                    <td>DOB:</td>
+                    <td><input id="dob" type="date"></td>
+                </tr>
+            </tbody>
+        </table>
+        <button id="validate" type="button">Validate</button>
+    </form>
+
+    <!-- Registration Form -->
+    <form id="regform" style="display: none;">
+        <table>
+            <thead>
+                <tr>
+                    <th>Field</th>
+                    <th>Enter Record</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Issue:</td>
+                    <td><input name="issue" type="text"></td>
+                </tr>
+                <tr>
+                    <td>Date of Occurrence of Issue:</td>
+                    <td><input name="date" type="date"></td>
+                </tr>
+                <tr>
+                    <td>Owner of the Issue:</td>
+                    <td><input name="name" type="text"></td>
+                </tr>
+                <tr>
+                    <td>Brief Description of the Issue:</td>
+                    <td><input name="description" type="text"></td>
+                </tr>
+            </tbody>
+        </table>
+        <button id="testbut" type="button">Submit</button>
+    </form>
+
+    <!-- Time Display -->
+    <div id="timediv" style="margin: 20px; display: none;"></div>
+
+    <script>
+        $(document).ready(function () {
+
+            // Table Styling
+            $("table").css({
+                "border-collapse": "collapse",
+                "border": "2px solid black",
+                "margin": "3px",
+                "width": "50%",
+                "padding": "2px"
+            });
+
+            $("th, td").css({
+                "margin": "3px",
+                "padding": "2px",
+                "text-align": "left"
+            });
+
+            // Validate Button Click
+            $("#validate").click(function (event) {
+                event.preventDefault();
+
+                var mob = $("#mobile").val();
+                var dob = $("#dob").val();
+
+                // Check Mobile Number and Date of Birth
+                if (mob === "1234567890" && dob === "2025-02-13") {
+                    console.log("Valid");
+                    $("#wlcmsg").css("display", "block");
+                    $("#loginform").slideUp(3000);
+                    $("#regform").slideDown(3000);
+                } else {
+                    alert("Invalid Input");
+                }
+            });
+
+            // Submit Button Click
+            $("#testbut").click(function (event) {
+                event.preventDefault();
+
+                // Fade Effect
+                $("#regform").fadeTo(300, 0.2);
+                $("#timediv").css("display", "block").text(new Date());
+
+                // Blink Effect
+                for (var i = 0; i < 6; i++) {
+                    $("#timediv").fadeToggle(3000);
+                }
+
+                // Collect Form Data
+                let formData = $("#regform").serializeArray();
+                let op = "";
+
+                $.each(formData, function (index, field) {
+                    if (field.value.trim()) {
+                        op += field.name + " -> " + field.value + "\n";
+                    }
+                });
+
+                // Show Collected Data
+                alert(op);
+            });
+        });
+    </script>
+
+</body>
+
+</html>

@@ -23,21 +23,23 @@
     </table>
 
     <script>
-        $(document).ready(function(){
-            $("table").css({"width":"50%","margin": "20px 0", "border-collapse":"collapse","background-color":"#f1f1c1"});
-            $("th, td").css({"border":"1px solid black", padding:"8px", "shadow":"2px 2px 5px #888", "text-align":"center"});
-            $("th").css({"background-color":"#4CAF50", "color":"white"});
-            
-            $('#fetchData').click(function(){
-                loadUserData();
-            });
+        // Apply CSS styles using jQuery
+        $("table").css({"width":"50%","margin": "20px 0", "border-collapse":"collapse","background-color":"#f1f1c1"});
+        $("th, td").css({"border":"1px solid black", "padding":"8px", "shadow":"2px 2px 5px #888", "text-align":"center"});
+        $("th").css({"background-color":"#4CAF50", "color":"white"});
+
+        // Load data on button click
+        $('#fetchData').click(function(){
+            loadUserData();
         });
+
+        // Function to load user data from JSON file
         function loadUserData(){
             const xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function(){
                 if(this.readyState == 4 && this.status == 200){
                     let rows = "";
-                    let data = xhttp.responseText;
+                    let data = this.responseText;
                     data = JSON.parse(data);
                     $.each(data, function(index, value){
                         rows += '<tr>';

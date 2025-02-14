@@ -55,9 +55,16 @@
         $("th, td").css({"border":"1px solid black", padding:"8px", "shadow":"2px 2px 5px #888", "text-align":"center"});
        
         // Highlight form fields on focus and blur
-        $("#enrollmentTable").on("mouseenter mouseleave", function () {
+        $("input, select").focus(function () {
+            $(this).css("background-color", "#f1f1c1");
+        }).blur(function () {
+            $(this).css("background-color", "white");
+        });
+
+        //Change table background color on mouseenter and mouseleave
+        $("#enrollmentTable").on("mouseenter mouseleave",function () {
             $(this).css("background-color", 
-                $(this).css("background-color") === "rgb(255, 192, 203)" ? "white" : "pink"
+                $(this).css("background-color") === "rgb(241, 241, 193)" ? "white" : "#f1f1c1"
             );
         });
 
@@ -76,14 +83,14 @@
             $("#mobiletr").after(`
                     <tr>
                         <td>Alternative Mobile</td>
-                        <td><input type="mobile" name="alt_mobile"></td>
+                        <td><input type="tel" name="alt_mobile"></td>
                     </tr>
             `);
             $(this).hide();
             $("th, td").css({"border":"1px solid black", padding:"8px", "shadow":"2px 2px 5px #888", "text-align":"center"});
         });
         // Handle form submission
-        $("#enrollmentForm").submit(function (event) {
+        $("body #enrollmentForm").submit(function (event) {
             event.preventDefault();  // Prevent page reload
 
             let formData = $(this).serializeArray();
